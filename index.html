@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Vanshraj — Portfolio</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#7dd3fc; --muted:#94a3b8;
+      --radius:16px;
+    }
+
+    /* reset & basics */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue';
+      background:linear-gradient(180deg,#071022 0%, #07192a 60%);
+      color:#e6eef8;scroll-behavior:smooth;perspective:1000px}
+    a{color:var(--accent);text-decoration:none}
+    .container{max-width:1100px;margin:28px auto;padding:20px}
+
+    /* header */
+    header{position:sticky;top:12px;z-index:999;display:flex;justify-content:space-between;align-items:center;
+      padding:12px 18px;margin:0 12px;background:rgba(0,0,0,0.2);border-radius:12px}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo .mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#60a5fa);
+      display:flex;align-items:center;justify-content:center;color:#082031;font-weight:700;font-size:18px;box-shadow:0 6px 22px rgba(7,18,34,0.6)}
+    .logo .text{line-height:1}
+    .logo .text .name{font-weight:700}
+    .logo .text .meta{font-size:12px;color:var(--muted)}
+
+    /* nav & hamburger */
+    nav{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+    nav a{padding:8px 12px;border-radius:10px;font-weight:600;background:transparent;transition:transform 0.2s}
+    nav a:hover{background:rgba(255,255,255,0.03);transform:translateY(-2px)}
+    .menu-toggle{
+      display:none;
+      font-size:26px;
+      background:none;
+      border:0;
+      color:var(--accent);
+      cursor:pointer;
+      padding:6px 8px;
+      border-radius:8px;
+    }
+    .menu-toggle:focus{outline:2px solid rgba(125,211,252,0.25)}
+
+    /* hero & cards */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    .hero-card,.project{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:28px;border-radius:var(--radius);backdrop-filter:blur(6px);
+      box-shadow:0 8px 30px rgba(2,6,23,0.6);transition:transform 0.35s, box-shadow 0.35s;transform-style:preserve-3d}
+    .hero-card:hover,.project:hover{transform:translateY(-8px) rotateX(4deg);box-shadow:0 18px 40px rgba(2,6,23,0.7)}
+
+    .title{font-size:28px;margin:0 0 8px}
+    .subtitle{color:var(--muted);margin:0 0 18px}
+    .cta{display:inline-block;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,#0369a1,#0891b2);color:white;font-weight:700}
+
+    /* profile image + lighting glow */
+    #photo-wrap{position:relative;width:100%;height:420px;border-radius:16px;overflow:hidden;background:#000;
+      display:flex;align-items:center;justify-content:center;transition:transform 0.4s;transform-style:preserve-3d}
+    #photo-wrap:hover{transform:rotateY(8deg) rotateX(4deg) scale(1.02)}
+    #photo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:16px;
+      box-shadow:
+        0 0 18px rgba(125,211,252,0.9),
+        0 0 48px rgba(125,211,252,0.6),
+        inset 0 -20px 80px rgba(0,0,0,0.6);
+      animation: neonGlow 3s infinite alternate}
+    @keyframes neonGlow {
+      from { box-shadow:0 0 12px rgba(125,211,252,0.6),0 0 30px rgba(125,211,252,0.45); }
+      to   { box-shadow:0 0 36px rgba(125,211,252,1),0 0 80px rgba(125,211,252,0.85); }
+    }
+
+    /* roadmap timeline */
+    .timeline {position:relative;margin:20px 0;padding-left:30px;list-style:none;}
+    .timeline::before {content:"";position:absolute;left:15px;top:0;bottom:0;width:2px;background:var(--accent);}
+    .timeline li {position:relative;margin-bottom:24px;opacity:0;transform:translateY(20px);transition:all 0.6s ease-out;}
+    .timeline li.show{opacity:1;transform:translateY(0)}
+    .timeline .dot {position:absolute;left:-2px;top:6px;width:12px;height:12px;background:var(--accent);border-radius:50%;
+      box-shadow:0 0 0 rgba(125,211,252,0.6);transition:all 0.4s}
+    .timeline li.show .dot{box-shadow:0 0 12px var(--accent),0 0 26px rgba(125,211,252,0.25);animation:pulse 1.6s infinite}
+    .timeline .content {padding-left:18px}
+    .timeline h3{margin:0 0 6px;font-size:18px}
+    .timeline p{margin:0;color:var(--muted);font-size:14px}
+    @keyframes pulse { 0% {box-shadow:0 0 0 rgba(125,211,252,0.2)} 50% {box-shadow:0 0 18px var(--accent)} 100% {box-shadow:0 0 0 rgba(125,211,252,0.2)} }
+
+    /* projects */
+    #projects .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
+    .project h4{margin:0 0 6px}
+    .muted{color:var(--muted);font-size:14px}
+
+    /* contact */
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    button.primary{padding:10px 14px;border-radius:10px;border:0;background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#04202c;font-weight:700;cursor:pointer}
+    button.primary:hover{transform:translateY(-3px) scale(1.02)}
+
+    /* popup */
+    .popup {display:none;position:fixed;bottom:30px;right:30px;background:rgba(125,211,252,0.98);color:black;padding:12px 18px;border-radius:12px;font-weight:700;box-shadow:0 8px 30px rgba(7,18,34,0.5);z-index:1200}
+
+    /* responsive tweaks */
+    @media (max-width:1024px){
+      .hero{grid-template-columns:1fr 360px}
+      #projects .project-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:720px){
+      .menu-toggle{display:block}
+      nav{display:none;flex-direction:column;width:100%;align-items:center;margin-top:10px;background:rgba(0,0,0,0.7);padding:12px;border-radius:12px}
+      nav.show{display:flex}
+      .hero{grid-template-columns:1fr}
+      #photo-wrap{height:300px;margin-top:14px}
+      #projects .project-grid{grid-template-columns:1fr}
+      header{padding:10px 14px}
+    }
+    @media (max-width:480px){
+      .title{font-size:20px}
+      #photo-wrap{height:220px}
+      nav a{font-size:14px;padding:8px 10px}
+      .hero-card{padding:20px}
+    }
+    .hero-buttons {
+  margin-top: 20px;
+}
+
+.resume-btn {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid rgba(125,211,252,0.12);
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.resume-btn:hover {
+  background: var(--accent);
+  color: black !important;
+  box-shadow: 0 0 12px var(--accent);
+  transform: translateY(-2px) scale(1.02);
+}
+.project-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: black !important;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0 12px var(--accent);
+  transition: all 0.3s ease;
+}
+
+.project-btn:hover {
+  background: rgb(245, 242, 242);
+  color: var(--accent) !important;
+  box-shadow: 0 0 18px white;
+  transform: translateY(-2px) scale(1.02);
+}
+.hero-social-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.hero-social-links a {
+  background: var(--accent);
+  color: black !important;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 0 12px var(--accent);
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.hero-social-links a:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: rgb(236, 232, 232);
+  color: var(--accent) !important;
+  box-shadow: 0 0 18px white;
+}
+.hero-social-links a i {
+  margin-right: 6px;
+  font-size: 16px;
+  vertical-align: middle;
+}
+.cta {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid rgba(125,211,252,0.12);
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta:hover {
+  background: var(--accent);
+  color: black !important;
+  box-shadow: 0 0 12px var(--accent);
+  transform: translateY(-2px) scale(1.02);
+}
+
+
+
+
+
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="container" role="banner">
+    <div class="logo" aria-hidden="false">
+      <div class="mark" aria-hidden="true">V</div>
+      <div class="text">
+        <div class="name">Portfolio</div>
+        
+      </div>
+    </div>
+
+    <!-- hamburger button (visible on small screens) -->
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">☰</button>
+
+    <nav id="main-nav" role="navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container" role="main">
+    <!-- HOME -->
+    <section id="home" class="hero" aria-labelledby="home-heading">
+      <div class="hero-card">
+        <h1 id="home-heading" class="title">Hi — I'm <span id="name">Vanshraj Singh Tomar</span></h1>
+        <p class="subtitle">B.Tech CSE (2024–2028) • Web Developer. I build fast, modern, and interactive websites with creative flair.</p>
+        <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
+          <a href="vansh resume.pdf" download class="resume-btn">Download CV</a>
+          <a class="cta" href="#contact" style="background:transparent;border:1px solid rgba(125,211,252,0.12);color:var(--accent)">Get in touch</a>
+        </div>
+        <!-- Social links under buttons -->
+        <div class="hero-social-links" aria-label="Social links">
+        <a href="https://github.com/vansh486" target="_blank" aria-label="GitHub">
+        <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://linkedin.com/in/vansh-tomar-9636b030a" target="_blank" aria-label="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter">
+        <i class="fab fa-twitter"></i> Twitter
+        </a>
+        </div>
+      </div>
+
+      <div id="photo-wrap" aria-hidden="false">
+        <!-- Make sure this filename matches the file in your project folder -->
+        <img src="IMG_20250127_105041_337 (1).webp" alt="Vanshraj Singh Tomar — profile photo">
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" style="margin-top:26px">
+      <div class="hero-card">
+        <h2>About</h2>
+        <p class="muted" id="about-name">I'm Vanshraj Singh Tomar, a second year B.Tech CSE student at IILM University with a growing passion for building intelligent systems and exploring the future of tech. I’ve started my journey with Java, C, Python and Kotlin and I'm currently learning Python for ML/AI and DSA with C. Long-term goal: SDE / Blockchain & Web3.</p>
+      </div>
+    </section>
+
+    <!-- SKILLS ROADMAP -->
+    <section id="skills" style="margin-top:18px">
+      <div class="hero-card">
+        <h2>Skills</h2>
+        <ul class="timeline" aria-label="Skill roadmap">
+          <li><span class="dot"></span><div class="content"><h3>Programming languages</h3><p>(C, Java, Kotlin, Python)</p></div></li>
+          <li><span class="dot"></span><div class="content"><h3>Frontend</h3><p>HTML, CSS, Responsive layouts</p></div></li>
+          <li><span class="dot"></span><div class="content"><h3>JavaScript</h3><p>DOM, Async, ES6+</p></div></li>
+          <li><span class="dot"></span><div class="content"><h3>React</h3><p>SPA & component-driven UI</p></div></li>
+          <li><span class="dot"></span><div class="content"><h3>Node.js</h3><p>Express & REST APIs</p></div></li>
+          <li><span class="dot"></span><div class="content"><h3>Databases</h3><p>MongoDB & SQL basics</p></div></li>
+          <li><span class="dot"></span><div class="content"><h3>Git & GitHub</h3><p>Version control & collaboration</p></div></li>
+          <li><span class="dot"></span><div class="content"><h3>Deployment</h3><p>Hosting & basic DevOps</p></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" style="margin-top:18px">
+      <div class="hero-card">
+        <h2>Projects</h2>
+      <div class="project-grid">
+       <div class="project">
+        <h4>IRCTC Website</h4>
+      <div class="muted">Made in Java with Gradle & local DB.</div>
+      <a href="https://github.com/yourusername/irctc" target="_blank" class="project-btn">View Project</a>
+      </div>
+       <div class="project">
+       <h4>Solar Optimizer</h4>
+      <div class="muted">Helps set solar angle & monitor power.</div>
+      <a href="https://github.com/yourusername/solar-optimizer" target="_blank" class="project-btn">View Project</a>
+      </div>
+      <div class="project">
+        <h4>Mini Games</h4>
+      <div class="muted">Creative coding experiments & fun apps.</div>
+      <a href="https://github.com/yourusername/mini-games" target="_blank" class="project-btn">View Project</a>
+  </div>
+</div>
+
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="margin-top:18px">
+      <div class="hero-card">
+        <h2>Contact</h2>
+        <p class="muted">Fill this form or email me at <strong id="email">you@example.com</strong></p>
+
+        <!-- Formspree form -->
+        <form id="contactForm" action="https://formspree.io/f/mldwnglk" method="POST">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <input name="name" placeholder="Your name" required />
+            <input name="email" placeholder="Your email" type="email" required />
+          </div>
+          <div style="margin-top:10px"><textarea name="message" rows="4" placeholder="Message" required></textarea></div>
+          <div style="margin-top:10px"><button class="primary" type="submit">Send message</button></div>
+        </form>
+
+        <div id="successPopup" class="popup" role="status" aria-live="polite">✅ Thank you — message sent.</div>
+      </div>
+    </section>
+
+    <footer style="margin-top:28px;text-align:center;color:var(--muted)">Built with ❤️ by <strong id="footer-name">Vanshraj</strong></footer>
+  </main>
+
+  <!-- SCRIPTS -->
+  <script>
+    /* ---------- Personal data fill ---------- */
+    const PERSON = {
+      nameFull: 'Vanshraj Singh Tomar',
+      title: 'B.Tech CSE 2024-2028',
+      role: 'Web Developer',
+      email: 'vanshomar2005@gmail.com'
+    };
+    document.getElementById('name').textContent = PERSON.nameFull;
+    const aboutEl = document.getElementById('about-name');
+    if (aboutEl) aboutEl.textContent = aboutEl.textContent.replace('Vanshraj Singh Tomar', PERSON.nameFull);
+    document.getElementById('footer-name').textContent = PERSON.nameFull.split(' ')[0];
+    const emailEl = document.getElementById('email');
+    if (emailEl) emailEl.textContent = PERSON.email;
+
+    /* ---------- Roadmap reveal (intersection observer) ---------- */
+    const roadmapItems = document.querySelectorAll('.timeline li');
+    const roadmapObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.22 });
+    roadmapItems.forEach(item => roadmapObserver.observe(item));
+
+    /* ---------- Hamburger menu toggle & auto-close ---------- */
+    const menuBtn = document.querySelector('.menu-toggle');
+    const navEl = document.querySelector('nav');
+    if (menuBtn && navEl) {
+      menuBtn.addEventListener('click', () => {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', String(!expanded));
+        navEl.classList.toggle('show');
+      });
+
+      // close nav on link click (useful on mobile)
+      navEl.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', () => {
+          if (navEl.classList.contains('show')) {
+            navEl.classList.remove('show');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // keyboard toggle (Enter / Space)
+      menuBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          menuBtn.click();
+        }
+      });
+    }
+
+    /* ---------- Formspree async submit + popup ---------- */
+    const form = document.getElementById('contactForm');
+    const popup = document.getElementById('successPopup');
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+        try {
+          const resp = await fetch(form.action, {
+            method: form.method,
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (resp.ok) {
+            form.reset();
+            showPopup('✅ Message sent — I will get back to you soon.');
+          } else {
+            const text = await resp.text();
+            console.error('Form error:', resp.status, text);
+            showPopup('❌ Something went wrong — try again later.');
+          }
+        } catch (err) {
+          console.error('Network error:', err);
+          showPopup('❌ Network error — check your connection.');
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+        }
+      });
+    }
+
+    function showPopup(message = '') {
+      if (!popup) return;
+      popup.textContent = message || popup.textContent;
+      popup.style.display = 'block';
+      // small delay to allow accessibility readers to pick up change
+      popup.setAttribute('aria-hidden', 'false');
+      setTimeout(() => {
+        popup.style.opacity = '1';
+      }, 20);
+      setTimeout(() => {
+        popup.style.opacity = '0';
+        setTimeout(() => { popup.style.display = 'none'; popup.setAttribute('aria-hidden','true'); }, 450);
+      }, 3000);
+    }
+
+    /* ---------- Optional: close mobile nav when clicking outside ---------- */
+    document.addEventListener('click', (e) => {
+      if (!navEl || !menuBtn) return;
+      if (navEl.classList.contains('show')) {
+        const insideNav = navEl.contains(e.target);
+        const insideBtn = menuBtn.contains(e.target);
+        if (!insideNav && !insideBtn) {
+          navEl.classList.remove('show');
+          menuBtn.setAttribute('aria-expanded','false');
+        }
+      }
+    });
+
+  </script>
+</body>
+</html>
+
+
