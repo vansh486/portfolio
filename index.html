@@ -1,460 +1,432 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <title>Vanshraj — Portfolio</title>
-  <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --accent:#7dd3fc; --muted:#94a3b8;
-      --radius:16px;
-    }
-
-    /* reset & basics */
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue';
-      background:linear-gradient(180deg,#071022 0%, #07192a 60%);
-      color:#e6eef8;scroll-behavior:smooth;perspective:1000px}
-    a{color:var(--accent);text-decoration:none}
-    .container{max-width:1100px;margin:28px auto;padding:20px}
-
-    /* header */
-    header{position:sticky;top:12px;z-index:999;display:flex;justify-content:space-between;align-items:center;
-      padding:12px 18px;margin:0 12px;background:rgba(0,0,0,0.2);border-radius:12px}
-    .logo{display:flex;gap:12px;align-items:center}
-    .logo .mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#60a5fa);
-      display:flex;align-items:center;justify-content:center;color:#082031;font-weight:700;font-size:18px;box-shadow:0 6px 22px rgba(7,18,34,0.6)}
-    .logo .text{line-height:1}
-    .logo .text .name{font-weight:700}
-    .logo .text .meta{font-size:12px;color:var(--muted)}
-
-    /* nav & hamburger */
-    nav{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-    nav a{padding:8px 12px;border-radius:10px;font-weight:600;background:transparent;transition:transform 0.2s}
-    nav a:hover{background:rgba(255,255,255,0.03);transform:translateY(-2px)}
-    .menu-toggle{
-      display:none;
-      font-size:26px;
-      background:none;
-      border:0;
-      color:var(--accent);
-      cursor:pointer;
-      padding:6px 8px;
-      border-radius:8px;
-    }
-    .menu-toggle:focus{outline:2px solid rgba(125,211,252,0.25)}
-
-    /* hero & cards */
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
-    .hero-card,.project{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:28px;border-radius:var(--radius);backdrop-filter:blur(6px);
-      box-shadow:0 8px 30px rgba(2,6,23,0.6);transition:transform 0.35s, box-shadow 0.35s;transform-style:preserve-3d}
-    .hero-card:hover,.project:hover{transform:translateY(-8px) rotateX(4deg);box-shadow:0 18px 40px rgba(2,6,23,0.7)}
-
-    .title{font-size:28px;margin:0 0 8px}
-    .subtitle{color:var(--muted);margin:0 0 18px}
-    .cta{display:inline-block;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,#0369a1,#0891b2);color:white;font-weight:700}
-
-    /* profile image + lighting glow */
-    #photo-wrap{position:relative;width:100%;height:420px;border-radius:16px;overflow:hidden;background:#000;
-      display:flex;align-items:center;justify-content:center;transition:transform 0.4s;transform-style:preserve-3d}
-    #photo-wrap:hover{transform:rotateY(8deg) rotateX(4deg) scale(1.02)}
-    #photo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:16px;
-      box-shadow:
-        0 0 18px rgba(125,211,252,0.9),
-        0 0 48px rgba(125,211,252,0.6),
-        inset 0 -20px 80px rgba(0,0,0,0.6);
-      animation: neonGlow 3s infinite alternate}
-    @keyframes neonGlow {
-      from { box-shadow:0 0 12px rgba(125,211,252,0.6),0 0 30px rgba(125,211,252,0.45); }
-      to   { box-shadow:0 0 36px rgba(125,211,252,1),0 0 80px rgba(125,211,252,0.85); }
-    }
-
-    /* roadmap timeline */
-    .timeline {position:relative;margin:20px 0;padding-left:30px;list-style:none;}
-    .timeline::before {content:"";position:absolute;left:15px;top:0;bottom:0;width:2px;background:var(--accent);}
-    .timeline li {position:relative;margin-bottom:24px;opacity:0;transform:translateY(20px);transition:all 0.6s ease-out;}
-    .timeline li.show{opacity:1;transform:translateY(0)}
-    .timeline .dot {position:absolute;left:-2px;top:6px;width:12px;height:12px;background:var(--accent);border-radius:50%;
-      box-shadow:0 0 0 rgba(125,211,252,0.6);transition:all 0.4s}
-    .timeline li.show .dot{box-shadow:0 0 12px var(--accent),0 0 26px rgba(125,211,252,0.25);animation:pulse 1.6s infinite}
-    .timeline .content {padding-left:18px}
-    .timeline h3{margin:0 0 6px;font-size:18px}
-    .timeline p{margin:0;color:var(--muted);font-size:14px}
-    @keyframes pulse { 0% {box-shadow:0 0 0 rgba(125,211,252,0.2)} 50% {box-shadow:0 0 18px var(--accent)} 100% {box-shadow:0 0 0 rgba(125,211,252,0.2)} }
-
-    /* projects */
-    #projects .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
-    .project h4{margin:0 0 6px}
-    .muted{color:var(--muted);font-size:14px}
-
-    /* contact */
-    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
-    button.primary{padding:10px 14px;border-radius:10px;border:0;background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#04202c;font-weight:700;cursor:pointer}
-    button.primary:hover{transform:translateY(-3px) scale(1.02)}
-
-    /* popup */
-    .popup {display:none;position:fixed;bottom:30px;right:30px;background:rgba(125,211,252,0.98);color:black;padding:12px 18px;border-radius:12px;font-weight:700;box-shadow:0 8px 30px rgba(7,18,34,0.5);z-index:1200}
-
-    /* responsive tweaks */
-    @media (max-width:1024px){
-      .hero{grid-template-columns:1fr 360px}
-      #projects .project-grid{grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width:720px){
-      .menu-toggle{display:block}
-      nav{display:none;flex-direction:column;width:100%;align-items:center;margin-top:10px;background:rgba(0,0,0,0.7);padding:12px;border-radius:12px}
-      nav.show{display:flex}
-      .hero{grid-template-columns:1fr}
-      #photo-wrap{height:300px;margin-top:14px}
-      #projects .project-grid{grid-template-columns:1fr}
-      header{padding:10px 14px}
-    }
-    @media (max-width:480px){
-      .title{font-size:20px}
-      #photo-wrap{height:220px}
-      nav a{font-size:14px;padding:8px 10px}
-      .hero-card{padding:20px}
-    }
-    .hero-buttons {
-  margin-top: 20px;
-}
-
-.resume-btn {
-  display: inline-block;
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: transparent;
-  border: 1px solid rgba(125,211,252,0.12);
-  color: var(--accent);
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.resume-btn:hover {
-  background: var(--accent);
-  color: black !important;
-  box-shadow: 0 0 12px var(--accent);
-  transform: translateY(-2px) scale(1.02);
-}
-.project-btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 14px;
-  border-radius: 8px;
-  background: var(--accent);
-  color: black !important;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 0 12px var(--accent);
-  transition: all 0.3s ease;
-}
-
-.project-btn:hover {
-  background: rgb(245, 242, 242);
-  color: var(--accent) !important;
-  box-shadow: 0 0 18px white;
-  transform: translateY(-2px) scale(1.02);
-}
-.hero-social-links {
-  display: flex;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.hero-social-links a {
-  background: var(--accent);
-  color: black !important;
-  font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  box-shadow: 0 0 12px var(--accent);
-  transition: all 0.3s ease;
-  font-size: 14px;
-}
-
-.hero-social-links a:hover {
-  transform: translateY(-2px) scale(1.05);
-  background: rgb(236, 232, 232);
-  color: var(--accent) !important;
-  box-shadow: 0 0 18px white;
-}
-.hero-social-links a i {
-  margin-right: 6px;
-  font-size: 16px;
-  vertical-align: middle;
-}
-.cta {
-  display: inline-block;
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: transparent;
-  border: 1px solid rgba(125,211,252,0.12);
-  color: var(--accent);
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.cta:hover {
-  background: var(--accent);
-  color: black !important;
-  box-shadow: 0 0 12px var(--accent);
-  transform: translateY(-2px) scale(1.02);
-}
-
-
-
-
-
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Portfolio of Vanshraj Singh Tomar, a B.Tech CSE student focused on software engineering, AI/ML, backend work, and data-driven projects."
+  >
+  <title>Vanshraj Singh Tomar | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="container" role="banner">
-    <div class="logo" aria-hidden="false">
-      <div class="mark" aria-hidden="true">V</div>
-      <div class="text">
-        <div class="name">Portfolio</div>
-        
-      </div>
+  <div class="page-shell">
+    <div class="page-glow page-glow--one" aria-hidden="true"></div>
+    <div class="page-glow page-glow--two" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true">
+      <span id="scrollProgress"></span>
     </div>
 
-    <!-- hamburger button (visible on small screens) -->
-    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">☰</button>
-
-    <nav id="main-nav" role="navigation">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- MAIN -->
-  <main class="container" role="main">
-    <!-- HOME -->
-    <section id="home" class="hero" aria-labelledby="home-heading">
-      <div class="hero-card">
-        <h1 id="home-heading" class="title">Hi — I'm <span id="name">Vanshraj Singh Tomar</span></h1>
-        <p class="subtitle">B.Tech CSE (2024–2028) • Web Developer. I build fast, modern, and interactive websites with creative flair.</p>
-        <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
-          <a href="vansh resume.pdf" download class="resume-btn">Download CV</a>
-          <a class="cta" href="#contact" style="background:transparent;border:1px solid rgba(125,211,252,0.12);color:var(--accent)">Get in touch</a>
-        </div>
-        <!-- Social links under buttons -->
-        <div class="hero-social-links" aria-label="Social links">
-        <a href="https://github.com/vansh486" target="_blank" aria-label="GitHub">
-        <i class="fab fa-github"></i> GitHub
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#home" aria-label="Go to home section">
+          <span class="brand-mark">VST</span>
+          <span class="brand-copy">
+            <strong>Vanshraj Singh Tomar</strong>
+            <small>Developer Portfolio</small>
+          </span>
         </a>
-        <a href="https://linkedin.com/in/vansh-tomar-9636b030a" target="_blank" aria-label="LinkedIn">
-        <i class="fab fa-linkedin"></i> LinkedIn
-        </a>
-        <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter">
-        <i class="fab fa-twitter"></i> Twitter
-        </a>
-        </div>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="siteNav"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+          <a class="nav-cta" href="RESUME.pdf" download>Resume</a>
+        </nav>
       </div>
+    </header>
 
-      <div id="photo-wrap" aria-hidden="false">
-        <!-- Make sure this filename matches the file in your project folder -->
-        <img src="IMG_20250127_105041_337 (1).webp" alt="Vanshraj Singh Tomar — profile photo">
-      </div>
-    </section>
+    <main>
+      <section class="section hero container" id="home">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">B.Tech CSE 2024-2028 | IILM University | Noida, India</p>
+          <h1>Software engineering, AI/ML, and data projects built on strong fundamentals.</h1>
+          <p class="hero-lead">
+            I am Vanshraj Singh Tomar, a B.Tech Computer Science student and SDE intern with hands-on work across Java, Python, backend APIs, machine learning, and real-world data-driven systems.
+          </p>
 
-    <!-- ABOUT -->
-    <section id="about" style="margin-top:26px">
-      <div class="hero-card">
-        <h2>About</h2>
-        <p class="muted" id="about-name">I'm Vanshraj Singh Tomar, a second year B.Tech CSE student at IILM University with a growing passion for building intelligent systems and exploring the future of tech. I’ve started my journey with Java, C, Python and Kotlin and I'm currently learning Python for ML/AI and DSA with C. Long-term goal: SDE / Blockchain & Web3.</p>
-      </div>
-    </section>
-
-    <!-- SKILLS ROADMAP -->
-    <section id="skills" style="margin-top:18px">
-      <div class="hero-card">
-        <h2>Skills</h2>
-        <ul class="timeline" aria-label="Skill roadmap">
-          <li><span class="dot"></span><div class="content"><h3>Programming languages</h3><p>(C, Java, Kotlin, Python)</p></div></li>
-          <li><span class="dot"></span><div class="content"><h3>Frontend</h3><p>HTML, CSS, Responsive layouts</p></div></li>
-          <li><span class="dot"></span><div class="content"><h3>JavaScript</h3><p>DOM, Async, ES6+</p></div></li>
-          <li><span class="dot"></span><div class="content"><h3>React</h3><p>SPA & component-driven UI</p></div></li>
-          <li><span class="dot"></span><div class="content"><h3>Node.js</h3><p>Express & REST APIs</p></div></li>
-          <li><span class="dot"></span><div class="content"><h3>Databases</h3><p>MongoDB & SQL basics</p></div></li>
-          <li><span class="dot"></span><div class="content"><h3>Git & GitHub</h3><p>Version control & collaboration</p></div></li>
-          <li><span class="dot"></span><div class="content"><h3>Deployment</h3><p>Hosting & basic DevOps</p></div></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" style="margin-top:18px">
-      <div class="hero-card">
-        <h2>Projects</h2>
-      <div class="project-grid">
-       <div class="project">
-        <h4>IRCTC Website</h4>
-      <div class="muted">Made in Java with Gradle & local DB.</div>
-      <a href="https://github.com/yourusername/irctc" target="_blank" class="project-btn">View Project</a>
-      </div>
-       <div class="project">
-       <h4>Solar Optimizer</h4>
-      <div class="muted">Helps set solar angle & monitor power.</div>
-      <a href="https://github.com/yourusername/solar-optimizer" target="_blank" class="project-btn">View Project</a>
-      </div>
-      <div class="project">
-        <h4>Mini Games</h4>
-      <div class="muted">Creative coding experiments & fun apps.</div>
-      <a href="https://github.com/yourusername/mini-games" target="_blank" class="project-btn">View Project</a>
-  </div>
-</div>
-
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" style="margin-top:18px">
-      <div class="hero-card">
-        <h2>Contact</h2>
-        <p class="muted">Fill this form or email me at <strong id="email">you@example.com</strong></p>
-
-        <!-- Formspree form -->
-        <form id="contactForm" action="https://formspree.io/f/mldwnglk" method="POST">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <input name="name" placeholder="Your name" required />
-            <input name="email" placeholder="Your email" type="email" required />
+          <div class="hero-actions">
+            <a class="button button--primary" href="#projects">Explore Projects</a>
+            <a class="button button--ghost" href="#contact">Start a Conversation</a>
           </div>
-          <div style="margin-top:10px"><textarea name="message" rows="4" placeholder="Message" required></textarea></div>
-          <div style="margin-top:10px"><button class="primary" type="submit">Send message</button></div>
-        </form>
 
-        <div id="successPopup" class="popup" role="status" aria-live="polite">✅ Thank you — message sent.</div>
-      </div>
-    </section>
+          <div class="hero-links" aria-label="Social links">
+            <a href="https://github.com/vansh486" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/vansh-tomar-9636b030a" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://leetcode.com/u/vansh_tomar554/" target="_blank" rel="noreferrer">LeetCode</a>
+            <button
+              class="inline-action"
+              id="copyEmail"
+              type="button"
+              data-email="vanshtom554@gmail.com"
+            >
+              Copy Email
+            </button>
+          </div>
 
-    <footer style="margin-top:28px;text-align:center;color:var(--muted)">Built with ❤️ by <strong id="footer-name">Vanshraj</strong></footer>
-  </main>
+          <div class="stack-list" aria-label="Current stack">
+            <span>Java</span>
+            <span>Python</span>
+            <span>MySQL</span>
+            <span>TensorFlow</span>
+            <span>DSA</span>
+            <span>GitHub</span>
+          </div>
 
-  <!-- SCRIPTS -->
-  <script>
-    /* ---------- Personal data fill ---------- */
-    const PERSON = {
-      nameFull: 'Vanshraj Singh Tomar',
-      title: 'B.Tech CSE 2024-2028',
-      role: 'Web Developer',
-      email: 'vanshomar2005@gmail.com'
-    };
-    document.getElementById('name').textContent = PERSON.nameFull;
-    const aboutEl = document.getElementById('about-name');
-    if (aboutEl) aboutEl.textContent = aboutEl.textContent.replace('Vanshraj Singh Tomar', PERSON.nameFull);
-    document.getElementById('footer-name').textContent = PERSON.nameFull.split(' ')[0];
-    const emailEl = document.getElementById('email');
-    if (emailEl) emailEl.textContent = PERSON.email;
+          <div class="hero-metrics">
+            <article class="metric-card reveal" data-counter data-target="3" data-suffix="+">
+              <span class="metric-value">0</span>
+              <span class="metric-label">Resume projects</span>
+            </article>
+            <article class="metric-card reveal" data-counter data-target="1">
+              <span class="metric-value">0</span>
+              <span class="metric-label">Internship completed</span>
+            </article>
+            <article class="metric-card reveal" data-counter data-target="5" data-suffix="%">
+              <span class="metric-value">0</span>
+              <span class="metric-label">Top batch standing</span>
+            </article>
+            <article class="metric-card reveal">
+              <span class="metric-value">2024</span>
+              <span class="metric-label">Start of my B.Tech journey</span>
+            </article>
+          </div>
+        </div>
 
-    /* ---------- Roadmap reveal (intersection observer) ---------- */
-    const roadmapItems = document.querySelectorAll('.timeline li');
-    const roadmapObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('show');
-      });
-    }, { threshold: 0.22 });
-    roadmapItems.forEach(item => roadmapObserver.observe(item));
+        <aside class="hero-visual reveal">
+          <div class="portrait-card" data-tilt>
+            <div class="portrait-frame">
+              <img
+                src="profile-photo.jpg"
+                alt="Portrait of Vanshraj Singh Tomar"
+              >
+            </div>
 
-    /* ---------- Hamburger menu toggle & auto-close ---------- */
-    const menuBtn = document.querySelector('.menu-toggle');
-    const navEl = document.querySelector('nav');
-    if (menuBtn && navEl) {
-      menuBtn.addEventListener('click', () => {
-        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-        menuBtn.setAttribute('aria-expanded', String(!expanded));
-        navEl.classList.toggle('show');
-      });
+            <div class="floating-note floating-note--top">
+              <span class="note-label">Current Focus</span>
+              <strong>Java, Python, backend APIs, AI/ML, and data systems</strong>
+            </div>
 
-      // close nav on link click (useful on mobile)
-      navEl.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', () => {
-          if (navEl.classList.contains('show')) {
-            navEl.classList.remove('show');
-            menuBtn.setAttribute('aria-expanded', 'false');
-          }
-        });
-      });
+            <div class="floating-note floating-note--bottom">
+              <span class="note-label">Career Direction</span>
+              <strong>SDE roles, intelligent products, and scalable data-backed software</strong>
+            </div>
+          </div>
+        </aside>
+      </section>
 
-      // keyboard toggle (Enter / Space)
-      menuBtn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          menuBtn.click();
-        }
-      });
-    }
+      <section class="section container" id="about">
+        <div class="section-heading reveal">
+          <p class="eyebrow">About</p>
+          <h2>Building practical software while expanding into ML and analytics.</h2>
+        </div>
 
-    /* ---------- Formspree async submit + popup ---------- */
-    const form = document.getElementById('contactForm');
-    const popup = document.getElementById('successPopup');
+        <div class="about-grid">
+          <article class="panel reveal">
+            <p>
+              I am a B.Tech Computer Science and Engineering student at IILM University, Noida. My work is centered around software engineering fundamentals, backend problem-solving, and applied machine learning, with a strong focus on writing clean systems that solve real problems.
+            </p>
+            <p>
+              Alongside academics, I have completed an SDE internship at Bluestock, built projects in streaming analytics, stock prediction, and civic tech, and stayed consistent with certifications in data analytics, AI/ML, and cloud computing.
+            </p>
+          </article>
 
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = form.querySelector('button[type="submit"]');
-        if (submitBtn) submitBtn.disabled = true;
-        try {
-          const resp = await fetch(form.action, {
-            method: form.method,
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-          });
+          <div class="about-cards">
+            <article class="mini-card reveal">
+              <span class="mini-card__label">Education</span>
+              <h3>B.Tech in Computer Science and Engineering</h3>
+              <p>IILM University, Noida, India. Academic session 2024-2028 with a current standing among the top 5% of the batch.</p>
+            </article>
 
-          if (resp.ok) {
-            form.reset();
-            showPopup('✅ Message sent — I will get back to you soon.');
-          } else {
-            const text = await resp.text();
-            console.error('Form error:', resp.status, text);
-            showPopup('❌ Something went wrong — try again later.');
-          }
-        } catch (err) {
-          console.error('Network error:', err);
-          showPopup('❌ Network error — check your connection.');
-        } finally {
-          if (submitBtn) submitBtn.disabled = false;
-        }
-      });
-    }
+            <article class="mini-card reveal">
+              <span class="mini-card__label">Internship</span>
+              <h3>Bluestock | SDE Intern</h3>
+              <p>Worked on backend services, RESTful APIs, debugging production issues, and scalable software features using clean code and OOP principles.</p>
+            </article>
 
-    function showPopup(message = '') {
-      if (!popup) return;
-      popup.textContent = message || popup.textContent;
-      popup.style.display = 'block';
-      // small delay to allow accessibility readers to pick up change
-      popup.setAttribute('aria-hidden', 'false');
-      setTimeout(() => {
-        popup.style.opacity = '1';
-      }, 20);
-      setTimeout(() => {
-        popup.style.opacity = '0';
-        setTimeout(() => { popup.style.display = 'none'; popup.setAttribute('aria-hidden','true'); }, 450);
-      }, 3000);
-    }
+            <article class="mini-card reveal">
+              <span class="mini-card__label">Credentials</span>
+              <h3>Analytics, AI/ML, and cloud certifications</h3>
+              <p>Google Data Analytics Specialization, Google AI/ML with Eduskills, and NPTEL Cloud Computing.</p>
+            </article>
+          </div>
+        </div>
+      </section>
 
-    /* ---------- Optional: close mobile nav when clicking outside ---------- */
-    document.addEventListener('click', (e) => {
-      if (!navEl || !menuBtn) return;
-      if (navEl.classList.contains('show')) {
-        const insideNav = navEl.contains(e.target);
-        const insideBtn = menuBtn.contains(e.target);
-        if (!insideNav && !insideBtn) {
-          navEl.classList.remove('show');
-          menuBtn.setAttribute('aria-expanded','false');
-        }
-      }
-    });
+      <section class="section container" id="skills">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Skill Map</p>
+          <h2>Skills taken directly from my latest resume and project work.</h2>
+        </div>
 
-  </script>
+        <div class="skills-grid">
+          <article class="skill-panel reveal">
+            <div class="skill-panel__head">
+              <h3>Programming And Core CS</h3>
+              <span>01</span>
+            </div>
+            <p>My foundation is built around languages, problem-solving, and software engineering concepts that support product development.</p>
+            <div class="skill-list">
+              <span>Python</span>
+              <span>C</span>
+              <span>Java</span>
+              <span>DSA</span>
+              <span>OOP</span>
+              <span>SDLC</span>
+            </div>
+          </article>
+
+          <article class="skill-panel reveal">
+            <div class="skill-panel__head">
+              <h3>Artificial Intelligence And ML</h3>
+              <span>02</span>
+            </div>
+            <p>I am actively growing in machine learning and applied intelligence through coursework, certifications, and hands-on builds.</p>
+            <div class="skill-list">
+              <span>Deep Learning</span>
+              <span>Neural Networks</span>
+              <span>Data Preprocessing</span>
+              <span>NLP</span>
+              <span>Computer Vision</span>
+            </div>
+          </article>
+
+          <article class="skill-panel reveal">
+            <div class="skill-panel__head">
+              <h3>Tools And Platforms</h3>
+              <span>03</span>
+            </div>
+            <p>I use modern tooling for notebooks, model building, version control, and practical experimentation.</p>
+            <div class="skill-list">
+              <span>MySQL</span>
+              <span>Git</span>
+              <span>GitHub</span>
+              <span>TensorFlow</span>
+              <span>Jupyter Notebook</span>
+              <span>Google Colab</span>
+            </div>
+          </article>
+
+          <article class="skill-panel reveal">
+            <div class="skill-panel__head">
+              <h3>Project Stack Exposure</h3>
+              <span>04</span>
+            </div>
+            <p>My projects have pushed me into data pipelines, backend services, civic platforms, and deployment-oriented tools.</p>
+            <div class="skill-list">
+              <span>Apache Kafka</span>
+              <span>Apache Spark</span>
+              <span>AWS Lambda</span>
+              <span>Docker</span>
+              <span>PostgreSQL</span>
+              <span>Flutter</span>
+              <span>HTML/CSS/JavaScript</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container" id="experience">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Experience</p>
+          <h2>Internship work, certifications, and academic milestones.</h2>
+        </div>
+
+        <div class="focus-grid">
+          <article class="focus-card reveal">
+            <span class="focus-index">01</span>
+            <h3>Bluestock | SDE Intern</h3>
+            <p>Pune, India | Nov-Dec</p>
+            <p>Implemented backend services and RESTful APIs, fixed production issues, and developed scalable Java-based features with clean OOP practices.</p>
+          </article>
+
+          <article class="focus-card reveal">
+            <span class="focus-index">02</span>
+            <h3>Certifications</h3>
+            <p>Google Data Analytics Specialization | Jan 2025</p>
+            <p>Google AI/ML with Eduskills | Mar 2026</p>
+            <p>NPTEL Cloud Computing | Nov 2025</p>
+          </article>
+
+          <article class="focus-card reveal">
+            <span class="focus-index">03</span>
+            <h3>Education Highlights</h3>
+            <p>B.Tech Computer Science and Engineering at IILM University, Noida from 2024 to 2028.</p>
+            <p>Currently ranked among the top 5% of the batch while building skills in software engineering and applied machine learning.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container" id="projects">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Projects</p>
+          <h2>Projects highlighted in my resume.</h2>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card reveal">
+            <div class="project-card__meta">
+              <span class="status-pill">Data Engineering</span>
+              <span>Sep 2024 - Dec 2024</span>
+            </div>
+            <h3>Real-Time Streaming Data Analytics</h3>
+            <p>
+              Built a real-time analytics pipeline for streaming data use cases such as stock feeds, IoT sensors, and social streams with a focus on live processing and data visualization.
+            </p>
+            <ul class="tag-list" aria-label="Real-time streaming data analytics technologies">
+              <li>Apache Kafka</li>
+              <li>Apache Spark</li>
+              <li>Python</li>
+              <li>AWS Lambda</li>
+              <li>Docker</li>
+            </ul>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-card__meta">
+              <span class="status-pill">Machine Learning</span>
+              <span>Jan 2026 - Apr 2026</span>
+            </div>
+            <h3>Stock Price Prediction Using Machine Learning</h3>
+            <p>
+              Built an LSTM-based stock prediction system using RSI, MACD, Bollinger Bands, and moving averages, then evaluated it through Sharpe ratio and backtesting to connect model accuracy with real trading outcomes.
+            </p>
+            <ul class="tag-list" aria-label="Stock price prediction technologies">
+              <li>Python</li>
+              <li>TensorFlow/Keras</li>
+              <li>Scikit-learn</li>
+              <li>Pandas</li>
+              <li>NumPy</li>
+            </ul>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-card__meta">
+              <span class="status-pill">Civic Tech</span>
+              <span>Sep 2025 - Dec 2025</span>
+            </div>
+            <h3>Crowdsourced Civic Issue Reporting And Resolution</h3>
+            <p>
+              Developed Fixiconnect, a civic reporting app and centralized admin portal that helps citizens report issues while enabling departments to track, review, and resolve them efficiently.
+            </p>
+            <ul class="tag-list" aria-label="Civic issue reporting project technologies">
+              <li>Flutter</li>
+              <li>HTML/CSS/JavaScript</li>
+              <li>PostgreSQL</li>
+              <li>Docker</li>
+              <li>Heatmaps</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-footer reveal">
+          <a class="button button--primary" href="https://github.com/vansh486" target="_blank" rel="noreferrer">
+            Open GitHub Profile
+          </a>
+        </div>
+      </section>
+
+      <section class="section container" id="contact">
+        <div class="contact-grid">
+          <article class="panel reveal">
+            <p class="eyebrow">Contact</p>
+            <h2>Have an internship, freelance idea, or collaboration in mind?</h2>
+            <p>
+              Use the form or reach me directly at
+              <a class="inline-link" href="mailto:vanshtom554@gmail.com">vanshtom554@gmail.com</a>.
+            </p>
+
+            <div class="contact-list">
+              <a href="mailto:vanshtom554@gmail.com">
+                <span>Email</span>
+                <strong>vanshtom554@gmail.com</strong>
+              </a>
+              <a href="tel:+917898295614">
+                <span>Phone</span>
+                <strong>+91 7898295614</strong>
+              </a>
+              <a href="https://github.com/vansh486" target="_blank" rel="noreferrer">
+                <span>GitHub</span>
+                <strong>github.com/vansh486</strong>
+              </a>
+              <a href="https://linkedin.com/in/vansh-tomar-9636b030a" target="_blank" rel="noreferrer">
+                <span>LinkedIn</span>
+                <strong>vansh-tomar-9636b030a</strong>
+              </a>
+              <a href="https://leetcode.com/u/vansh_tomar554/" target="_blank" rel="noreferrer">
+                <span>LeetCode</span>
+                <strong>leetcode.com/u/vansh_tomar554</strong>
+              </a>
+              <a href="RESUME.pdf" download>
+                <span>Resume</span>
+                <strong>Download PDF</strong>
+              </a>
+            </div>
+          </article>
+
+          <form
+            class="contact-form panel reveal"
+            id="contactForm"
+            action="https://formspree.io/f/mldwnglk"
+            method="POST"
+          >
+            <div class="form-row">
+              <label>
+                Name
+                <input name="name" type="text" placeholder="Your name" required>
+              </label>
+              <label>
+                Email
+                <input name="email" type="email" placeholder="your@email.com" required>
+              </label>
+            </div>
+
+            <label>
+              Subject
+              <input name="subject" type="text" placeholder="Project, internship, collaboration..." required>
+            </label>
+
+            <label>
+              Message
+              <textarea name="message" rows="6" placeholder="Tell me about your idea." required></textarea>
+            </label>
+
+            <button class="button button--primary button--submit" type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <p>Designed and built by Vanshraj Singh Tomar.</p>
+      <p id="footerMeta">Open to internships and collaborative projects.</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-hidden="true"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
-
