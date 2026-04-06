@@ -186,7 +186,7 @@ I'd love to connect! Reach out through any of these channels:
 - **📧 Email**: your.email@example.com
 - **💼 LinkedIn**: [Connect on LinkedIn](https://linkedin.com/in/yourprofile)
 - **🐙 GitHub**: [@vansh486](https://github.com/vansh486)
-- **🌐 Website**: [View Live Portfolio](#)
+- **🌐 Website**: [View Live Portfoli](https://vrstportfolio.netlify.app/)
 
 ### Let's Collaborate!
 Whether you have questions, suggestions, or opportunities for collaboration, feel free to reach out. I'm always excited to discuss new projects and ideas!
@@ -197,6 +197,6 @@ Whether you have questions, suggestions, or opportunities for collaboration, fee
 
 ⭐ If you found this portfolio useful, please consider giving it a star! ⭐
 
-**Made with ❤️ by [Your Name]**
+**Made with ❤️ by [Vanshraj Singh Tomar]**
 
 </div>
