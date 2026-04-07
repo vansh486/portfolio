@@ -46,7 +46,7 @@
 
 - **HTML5**: Semantic markup, modern web standards
 - **CSS3**: Flexbox, CSS Grid, animations, media queries
-- **JavaScript (Vanilla)**: DOM manipulation, event handling, interactive features
+- **JavaScript (Vanilla)**: DOM manipulation, event handling, interactive feature
 
 ## 🚀 Featured Projects
 
