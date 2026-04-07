@@ -1,4 +1,4 @@
-﻿const menuButton = document.querySelector(".menu-toggle");
+const menuButton = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector("#siteNav");
 const navLinks = Array.from(document.querySelectorAll(".site-nav a[href^='#']"));
 const revealItems = document.querySelectorAll(".reveal");
@@ -158,6 +158,7 @@ if (contactForm) {
     event.preventDefault();
 
     const submitButton = contactForm.querySelector("button[type='submit']");
+    contactForm.classList.add("is-sending");
 
     if (submitButton instanceof HTMLButtonElement) {
       submitButton.disabled = true;
@@ -183,6 +184,7 @@ if (contactForm) {
       showToast("Could not send the message. Please try again later.", true);
       console.error(error);
     } finally {
+      contactForm.classList.remove("is-sending");
       if (submitButton instanceof HTMLButtonElement) {
         submitButton.disabled = false;
         submitButton.textContent = "Send Message";

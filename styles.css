@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg: #06101a;
   --bg-soft: #0b1725;
   --panel: rgba(10, 19, 31, 0.78);
@@ -716,6 +716,11 @@ button {
   border-color: rgba(128, 255, 214, 0.55);
   background: rgba(4, 10, 18, 0.96);
   transform: translateY(-1px);
+}
+
+.contact-form.is-sending {
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .button--submit {
