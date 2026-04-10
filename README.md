@@ -8,9 +8,9 @@
 
 > A professional portfolio website showcasing my projects, skills, and experience. Built with modern web technologies for a responsive and interactive user experience.
 
-**[View Live Demo](#)** | **[Download Resume](RESUME.pdf)** | **[Get in Touch](#contact)**
+[View Live Demo](https://vrstportfolio.netlify.app/) | [Download Resume](RESUME.pdf) | [Get in Touch](#contact)
 
-## 📋 Table of Contents
+# 📋 Table of Contents
 
 - [✨ Features](#features)
 - [🛠️ Technologies Used](#technologies-used)
@@ -25,7 +25,7 @@
 - [📄 License](#license)
 - [📞 Contact](#contact)
 
-## ✨ Features
+# ✨ Features
 
 - **🎯 Responsive Design**: Optimized for desktop, tablet, and mobile devices
 - **✨ Smooth Animations**: Interactive elements with fluid transitions and effects
@@ -36,73 +36,54 @@
 - **♿ Accessibility**: WCAG compliant with proper semantic markup
 - **🌓 Dark Mode Ready**: Foundation for theme switching capability
 
-## 🛠️ Technologies Used
+# 🛠️ Technologies Used
 
 - **HTML5**: Semantic markup, modern web standards
 - **CSS3**: Flexbox, CSS Grid, animations, media queries
 - **JavaScript (Vanilla)**: DOM manipulation, event handling, interactive features
 
-## Technologies Used
+# Technologies Used
 
 - **HTML5**: Semantic markup, modern web standards
 - **CSS3**: Flexbox, CSS Grid, animations, media queries
 - **JavaScript (Vanilla)**: DOM manipulation, event handling, interactive feature
 
-## 🚀 Featured Projects
+# 🚀 Featured Projects
 
-### 1. **Portfolio Website**
+# 1. **Portfolio Website**
    - A responsive personal portfolio showcasing projects and skills
    - Built with vanilla HTML, CSS, and JavaScript
    - Features smooth animations and mobile optimization
    - **Tech Stack**: HTML5, CSS3, JavaScript
 
-### 2. **Interactive Components**
+# 2. **Interactive Components**
    - Custom interactive UI elements with vanilla JavaScript
    - Smooth transitions and animations
    - Performance optimized for quick interactions
    - **Tech Stack**: JavaScript, CSS3
 
-### 3. **Responsive Design System**
+# 3. **Responsive Design System**
    - Mobile-first responsive layout
    - Cross-browser compatible
    - Accessible and semantic markup
    - **Tech Stack**: HTML5, CSS3
 
-## 💼 Skills & Experience
+# 💼 Skills & Experience
 
-### Languages
+# Languages
 - HTML5, CSS3, JavaScript
 
-### Tools & Platforms
+# Tools & Platforms
 - Git & GitHub, Web Browsers, Code Editors
 
-### Core Competencies
+# Core Competencies
 - Web Development, Responsive Design, Front-End Development
 - UI/UX Implementation, Performance Optimization
 - Cross-Browser Compatibility, Accessibility (WCAG)
 
-## 📥 Installation
-
-### Quick Start (No Setup Required)
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/vansh486/portfolio.git
-   cd portfolio
-   ```
-
-2. Open in your browser:
-   ```bash
-   # Option 1: Direct file open
-   open index.html
-   
-   # Option 2: Using Python (local server)
-   python -m http.server 8000
-   # Then visit http://localhost:8000
-   ```
-
 3. That's it! No build tools or dependencies needed.
 
-### For Development
+# For Development
 
 If you want to contribute or develop locally:
 
@@ -112,10 +93,9 @@ If you want to contribute or develop locally:
 4. Refresh your browser to see changes
 5. Test across different devices and browsers
 
-## 💻 Usage & Development
+# 💻 Usage & Development
 
-### Project Structure
-```
+# Project Structure
 portfolio/
 ├── index.html          # Main HTML file
 ├── styles.css          # Styling and layout
@@ -125,28 +105,28 @@ portfolio/
 └── README.md           # Documentation
 ```
 
-### Customization Tips
+# Customization Tips
 
 - **Update Content**: Edit `index.html` to add your projects and information
 - **Customize Styling**: Modify `styles.css` to match your brand colors
 - **Add Interactions**: Enhance `script.js` with additional JavaScript features
 - **Replace Images**: Swap `profile-photo.jpg` with your own photo
 
-## 📸 Screenshots
+# 📸 Screenshots
 
 | Desktop View | Mobile View |
 |---|---|
 | ![Portfolio Desktop](https://via.placeholder.com/500x350?text=Portfolio+Desktop) | ![Portfolio Mobile](https://via.placeholder.com/300x500?text=Portfolio+Mobile) |
 | *Full portfolio experience on desktop* | *Optimized mobile interface* |
 
-## ⚡ Performance
+# ⚡ Performance
 
-- **Page Load Time**: < 2 seconds (optimized assets)
-- **Lighthouse Score**: 90+ (Performance, Accessibility, Best Practices)
-- **Mobile Responsiveness**: 100% compatible
-- **Code Size**: Minimal with no external dependencies
+- Page Load Time: < 2 seconds (optimized assets)
+- Lighthouse Score: 90+ (Performance, Accessibility, Best Practices)
+- Mobile Responsiveness: 100% compatible
+- Code Size: Minimal with no external dependencies
 
-## 🌐 Browser Support
+# 🌐 Browser Support
 
 | Browser | Support |
 |---------|---------|
@@ -156,7 +136,7 @@ portfolio/
 | Edge | ✅ Latest 2 versions |
 | Mobile Browsers | ✅ All modern versions |
 
-## 🤝 Contributing
+# 🤝 Contributing
 
 Contributions are welcome! To contribute:
 
@@ -166,20 +146,20 @@ Contributions are welcome! To contribute:
 4. **Push** to the branch (`git push origin feature/AmazingFeature`)
 5. **Open** a Pull Request
 
-### Areas for Contribution
+# Areas for Contribution
 - Bug fixes and performance improvements
 - New features and enhancements
 - Accessibility improvements
 - Documentation updates
 - Design refinements
 
-## 📄 License
+# 📄 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 The MIT License allows you to use, modify, and distribute this project freely with proper attribution.
 
-## 📞 Contact
+# 📞 Contact
 
 I'd love to connect! Reach out through any of these channels:
 
@@ -188,7 +168,7 @@ I'd love to connect! Reach out through any of these channels:
 - **🐙 GitHub**: [@vansh486](https://github.com/vansh486)
 - **🌐 Website**: [View Live Portfoli](https://vrstportfolio.netlify.app/)
 
-### Let's Collaborate!
+# Let's Collaborate!
 Whether you have questions, suggestions, or opportunities for collaboration, feel free to reach out. I'm always excited to discuss new projects and ideas!
 
 ---
